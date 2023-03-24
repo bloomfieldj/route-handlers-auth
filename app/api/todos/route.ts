@@ -5,13 +5,22 @@ import { headers, cookies } from "next/headers";
 export async function POST(request: Request) {
   const { title } = await request.json();
 
+  console.log(title);
+
   const supabase = createRouteHandlerSupabaseClient({
     headers,
     cookies,
   });
 
-  const { data } = await supabase.from("todos").insert({ title });
-  return NextResponse.json(data);
+  const { data, error } = await supabase.from("todos").insert({ title });
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    return NextResponse.json(data);
+  }
 }
 
 export async function PUT(request: Request) {
@@ -22,9 +31,14 @@ export async function PUT(request: Request) {
     cookies,
   });
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("todos")
     .update({ is_complete: true })
     .match({ id });
+
+  if (error) {
+    console.log(error);
+  }
+
   return NextResponse.json(data);
 }

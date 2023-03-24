@@ -7,20 +7,22 @@ export function Login() {
 
   const signUp = () => {
     supabase.auth.signUp({
-      email: "jon@supabase.com",
+      email: "kidkhayo@gmail.com",
       password: "sup3rs3cur3",
     });
   };
 
   const signIn = () => {
     supabase.auth.signInWithPassword({
-      email: "jon@supabase.com",
+      email: "kidkhayo@gmail.com",
       password: "sup3rs3cur3",
     });
+    console.log("Signed in!");
   };
 
   const signOut = () => {
     supabase.auth.signOut();
+    console.log("Signed out!");
   };
 
   return (
